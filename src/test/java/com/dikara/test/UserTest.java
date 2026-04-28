@@ -2,6 +2,7 @@ package com.dikara.test;
 
 import com.dikara.api.UserAPI;
 import com.dikara.dto.request.UserRequest;
+import com.dikara.spec.ResponseSpecBuilderUtil;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 //import org.junit.jupiter.api.Test;
@@ -13,78 +14,73 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class UserTest extends BaseTest {
 
-    UserAPI userAPI = new UserAPI();
+
 
 
     @Test
     void getUsers (){
-
+        System.out.println("Thread: " + Thread.currentThread().getId());
+        UserAPI userAPI = new UserAPI(getRequest());
         Response response = userAPI.getUsers();
-        response.then()
-                .statusCode(200)
-                .body("id", everyItem(notNullValue()))
-                .body("name", everyItem(notNullValue()))
-                .body("email", everyItem(notNullValue()))
-                .body("phone", everyItem(notNullValue()))
-                .body("address", everyItem(notNullValue()))
-                .body("website", everyItem(notNullValue()))
-                .body("company", everyItem(notNullValue()))
-                .log().all();
+        response.then().spec(ResponseSpecBuilderUtil.success200())
+                .body("size()", greaterThan(0));
+               // .log().all();
 
     }
 
     @Test
     void getUserDetail (){
+        System.out.println("Thread: " + Thread.currentThread().getId());
+        UserAPI userAPI = new UserAPI(getRequest());
 
         Response response = userAPI.getUserDetail("1");
         response.then()
-                .statusCode(200)
+                .spec(ResponseSpecBuilderUtil.userDetailSpec())
                 .body("name", equalTo("Leanne Graham"))
-                .body("username", equalTo("Bret"))
-                .body("email", contains("@"))
-                .body("id", equalTo(1))
-                .body("address", notNullValue())
-                .body("phone", notNullValue())
-                .body("website", notNullValue())
-                .body("company", notNullValue())
-                .log().all();
+                .body("username", equalTo("Bret"));
+                //.log().all();
 
 
     }
 
     @Test
     void createUser(){
+        System.out.println("Thread: " + Thread.currentThread().getId());
+        UserAPI userAPI = new UserAPI(getRequest());
         UserRequest user = new UserRequest("Derren", "balita");
         Response response = userAPI.createUser(user);
         response.then()
-                .statusCode(201)
+                .spec(ResponseSpecBuilderUtil.success201())
                 .body("name", equalTo("Derren"))
-                .body("job", equalTo("balita"))
-                .body("id", notNullValue())
-                .log().all();
+                .body("job", equalTo("balita"));
+                //.log().all();
     }
 
     @Test(groups={"positive"})
     public void createUserTest (){
+        System.out.println("Thread: " + Thread.currentThread().getId());
+        UserAPI userAPI = new UserAPI(getRequest());
         UserRequest userRequest = new UserRequest("Charlie", "Baby Sitter");
-        System.out.println("BASE URI: " + RestAssured.baseURI);
         Response response = userAPI.createUser(userRequest);
 
         response.then()
-                .statusCode(201);
+                .spec(ResponseSpecBuilderUtil.success201());
     }
 
     @Test(groups={"positive"})
     public void getUsertest(){
-        System.out.println("BASE URI: " + RestAssured.baseURI);
+        System.out.println("Thread: " + Thread.currentThread().getId());
+        UserAPI userAPI = new UserAPI(getRequest());
+
         Response response =userAPI.getUsers();
 
-        response.then().statusCode(200);
+        response.then().spec(ResponseSpecBuilderUtil.success200());
 
     }
 
     @Test
     public void testSimple(){
+        System.out.println("Thread: " + Thread.currentThread().getId());
         System.out.println("BASE URI: " + RestAssured.baseURI);
         System.out.println("INI TEST SIMPLE");
     }

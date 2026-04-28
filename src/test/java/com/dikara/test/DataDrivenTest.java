@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class DataDrivenTest extends BaseTest {
 
-    UserAPI userAPI = new UserAPI();
+
 
 //    @DataProvider(name = "userData")
 //    public Object[][] userData() {
@@ -29,7 +29,7 @@ public class DataDrivenTest extends BaseTest {
 
    @Test (dataProvider = "userData", dataProviderClass = UserDataProvider.class)
         public void createUserDataDriven(UserRequest user, int expectedStatus){
-
+       UserAPI userAPI = new UserAPI(getRequest());
             Response response = userAPI.createUser(user);
 
             response.then().statusCode(expectedStatus)
@@ -50,15 +50,17 @@ public class DataDrivenTest extends BaseTest {
                 new UserRequest("Derren", "Teknik Sipil"),
                 new UserRequest("Rizka", "IT Governance")
         };
+        UserAPI userAPI = new UserAPI(getRequest());
 
         for (UserRequest userReq: users){
+
             Response response = userAPI.createUser(userReq);
             response.then()
                     .statusCode(201)
                     .body("name", equalTo(userReq.getName()))
                     .body("job", equalTo(userReq.getJob()))
-                    .body("id", notNullValue())
-                    .log().all();
+                    .body("id", notNullValue());
+                    //.log().all();
 
             System.out.println("Created User: "+ userReq.getName());
         }
@@ -72,6 +74,8 @@ public class DataDrivenTest extends BaseTest {
                 new UserRequest("Rizka", ""),
                 new UserRequest("", "Teknik Sipil")
         };
+
+        UserAPI userAPI = new UserAPI(getRequest());
 
         for (UserRequest user: users){
             Response response = userAPI.createUser(user);
@@ -100,7 +104,7 @@ public class DataDrivenTest extends BaseTest {
                 new UserRequest("Rizka", ""),
                 new UserRequest("", "Teknik Sipil")
         };
-
+        UserAPI userAPI = new UserAPI(getRequest());
         for (UserRequest user: users){
             Response response = userAPI.createUser(user);
 

@@ -1,6 +1,15 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Test Suite">
-    <test name="API Test">
+<suite name="Test Suite" parallel="methods" thread-count="3">
+
+    <!-- Test lama tetap ada -->
+    <test name="API Test - All">
+        <classes>
+            <class name="com.dikara.test.UserTest"/>
+        </classes>
+    </test>
+
+    <!-- Tambahan khusus group (opsional, ga ganggu existing) -->
+    <test name="API Test - Positive Only">
         <groups>
             <run>
                 <include name="positive"/>
@@ -10,4 +19,5 @@
             <class name="com.dikara.test.UserTest"/>
         </classes>
     </test>
+
 </suite>

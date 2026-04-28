@@ -1,4 +1,4 @@
-package com.dikara.service;
+package com.dikara;
 
 import com.dikara.dto.response.LoginResponse;
 
@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 //import org.junit.jupiter.api.Test;
 
 
-public class LoginServiceTest {
+public class LoginManualTest {
 
 
 
