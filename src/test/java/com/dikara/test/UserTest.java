@@ -2,8 +2,11 @@ package com.dikara.test;
 
 import com.dikara.api.UserAPI;
 import com.dikara.dto.request.UserRequest;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
+
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.notNullValue;
@@ -60,4 +63,31 @@ public class UserTest extends BaseTest {
                 .body("id", notNullValue())
                 .log().all();
     }
+
+    @Test(groups={"positive"})
+    public void createUserTest (){
+        UserRequest userRequest = new UserRequest("Charlie", "Baby Sitter");
+        System.out.println("BASE URI: " + RestAssured.baseURI);
+        Response response = userAPI.createUser(userRequest);
+
+        response.then()
+                .statusCode(201);
+    }
+
+    @Test(groups={"positive"})
+    public void getUsertest(){
+        System.out.println("BASE URI: " + RestAssured.baseURI);
+        Response response =userAPI.getUsers();
+
+        response.then().statusCode(200);
+
+    }
+
+    @Test
+    public void testSimple(){
+        System.out.println("BASE URI: " + RestAssured.baseURI);
+        System.out.println("INI TEST SIMPLE");
+    }
+
+
 }

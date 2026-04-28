@@ -1,8 +1,12 @@
 package com.dikara.service;
 
 import com.dikara.dto.response.LoginResponse;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+//import org.testng.asserts.Assertion;
+//import org.junit.jupiter.api.Test;
+
 
 public class LoginServiceTest {
 
@@ -48,8 +52,8 @@ public class LoginServiceTest {
         int expectedStatusCode = 400;
         String expectedMessage = "password required";
 
-        Assertions.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
-        Assertions.assertEquals(expectedMessage, loginResponse.getMessage());
+        Assert.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
+        Assert.assertEquals(expectedMessage, loginResponse.getMessage());
 
 
     }
@@ -63,8 +67,8 @@ public class LoginServiceTest {
         int expectedStatusCode = 400;
         String expectedMessage = "email required";
 
-        Assertions.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
-        Assertions.assertEquals(expectedMessage, loginResponse.getMessage());
+        Assert.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
+        Assert.assertEquals(expectedMessage, loginResponse.getMessage());
 
 
     }
@@ -76,8 +80,8 @@ public class LoginServiceTest {
         int expectedStatusCode = 401;
         String expectedMessage = "email is not registered";
 
-        Assertions.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
-        Assertions.assertEquals(expectedMessage, loginResponse.getMessage());
+        Assert.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
+        Assert.assertEquals(expectedMessage, loginResponse.getMessage());
     }
 
 
@@ -88,8 +92,8 @@ public class LoginServiceTest {
         int expectedStatusCode = 400;
         String expectedMessage = "password required";
 
-        Assertions.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
-        Assertions.assertEquals(expectedMessage, loginResponse.getMessage());
+        Assert.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
+        Assert.assertEquals(expectedMessage, loginResponse.getMessage());
     }
 
 
@@ -100,8 +104,8 @@ public class LoginServiceTest {
         int expectedStatusCode = 400;
         String expectedMessage = "password required";
 
-        Assertions.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
-        Assertions.assertEquals(expectedMessage, loginResponse.getMessage());
+        Assert.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
+        Assert.assertEquals(expectedMessage, loginResponse.getMessage());
     }
 
 
@@ -113,8 +117,8 @@ public class LoginServiceTest {
         int expectedStatusCode = 400;
         String expectedMessage = "wrong email format";
 
-        Assertions.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
-        Assertions.assertEquals(expectedMessage, loginResponse.getMessage());
+        Assert.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
+        Assert.assertEquals(expectedMessage, loginResponse.getMessage());
     }
 
 
@@ -125,8 +129,8 @@ public class LoginServiceTest {
         int expectedStatusCode = 400;
         String expectedMessage = "invalid credentials";
 
-        Assertions.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
-        Assertions.assertEquals(expectedMessage, loginResponse.getMessage());
+        Assert.assertEquals(expectedStatusCode, loginResponse.getStatusCode());
+        Assert.assertEquals(expectedMessage, loginResponse.getMessage());
     }
 
 

@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="API Test">
+        <groups>
+            <run>
+                <include name="positive"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.dikara.test.UserTest"/>
+        </classes>
+    </test>
+</suite>

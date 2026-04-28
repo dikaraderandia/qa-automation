@@ -2,8 +2,10 @@ package com.dikara;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+//import org.junit.jupiter.api.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -52,14 +54,14 @@ public class LoginTestRedAssured {
 
         System.out.println(statusCode);
 
-        Assertions.assertEquals(200, statusCode);
+        Assert.assertEquals(200, statusCode);
 
 
         String name = response.jsonPath().getString("[0].username");
 
         System.out.println(name);
 
-        Assertions.assertEquals("Bret", name);
+        Assert.assertEquals("Bret", name);
 
     }
 
@@ -80,7 +82,7 @@ public class LoginTestRedAssured {
 
         String id = response.jsonPath().getString("id");
 
-        Assertions.assertNotNull(id);
+        Assert.assertNotNull(id);
 
     }
 

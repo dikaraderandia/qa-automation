@@ -1,10 +1,14 @@
 package com.dikara.test;
 
 import com.dikara.api.UserAPI;
+import com.dikara.data.UserDataProvider;
 import com.dikara.dto.request.UserRequest;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+//import org.junit.jupiter.api.Test;
+
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -12,6 +16,29 @@ import static org.hamcrest.Matchers.notNullValue;
 public class DataDrivenTest extends BaseTest {
 
     UserAPI userAPI = new UserAPI();
+
+//    @DataProvider(name = "userData")
+//    public Object[][] userData() {
+//        return new Object[][]{
+//                { new UserRequest("Dikara", "QA"), 201 },
+//                { new UserRequest("Rizka", ""), 201 }, // API tetap 201
+//                { new UserRequest("", "Teknik Sipil"), 201 }
+//        };
+//    }
+
+
+   @Test (dataProvider = "userData", dataProviderClass = UserDataProvider.class)
+        public void createUserDataDriven(UserRequest user, int expectedStatus){
+
+            Response response = userAPI.createUser(user);
+
+            response.then().statusCode(expectedStatus)
+                    .body("id", notNullValue());
+
+        System.out.println("Tested: " + user.getName() + " | " + user.getJob());
+
+        }
+
 
     @Test
     void createMultipleUsers(){
@@ -80,7 +107,7 @@ public class DataDrivenTest extends BaseTest {
             if (user.getName().isEmpty()||user.getJob().isEmpty()){
                 int resp = response.getStatusCode();
 
-                Assertions.assertEquals(400, resp);
+                Assert.assertEquals(400, resp);
             }
 
             else{
