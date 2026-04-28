@@ -7,10 +7,11 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 //import org.junit.jupiter.api.Test;
 import org.testng.annotations.Test;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.notNullValue;
+
 
 public class UserTest extends BaseTest {
 
@@ -23,6 +24,7 @@ public class UserTest extends BaseTest {
         UserAPI userAPI = new UserAPI(getRequest());
         Response response = userAPI.getUsers();
         response.then().spec(ResponseSpecBuilderUtil.success200())
+                .body(matchesJsonSchemaInClasspath("schema/users-schema.json"))
                 .body("size()", greaterThan(0));
                // .log().all();
 
@@ -36,6 +38,7 @@ public class UserTest extends BaseTest {
         Response response = userAPI.getUserDetail("1");
         response.then()
                 .spec(ResponseSpecBuilderUtil.userDetailSpec())
+                .body(matchesJsonSchemaInClasspath("schema/user-detail-schema.json"))
                 .body("name", equalTo("Leanne Graham"))
                 .body("username", equalTo("Bret"));
                 //.log().all();
